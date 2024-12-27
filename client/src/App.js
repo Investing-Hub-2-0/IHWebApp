@@ -1,72 +1,162 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const [cryptoData, setCryptoData] = useState([]);
+  const [error, setError] = useState(null);
+  const [sortConfig, setSortConfig] = useState({ key: "name", direction: "asc" });
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const fetchCryptoData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/crypto");
+        setCryptoData(response.data);
+        setError(null); // Clear any previous error
+      } catch (err) {
+        console.error("Error fetching crypto data:", err.message);
+        setError("Failed to fetch crypto data. Please try again later.");
+      }
+    };
+
+    // Fetch data initially
+    fetchCryptoData();
+
+    // Set up interval for periodic updates (every 5 minutes)
+    const intervalId = setInterval(fetchCryptoData, 5 * 60 * 1000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // Sorting logic
+  const sortData = (data) => {
+    if (!sortConfig.key) return data;
+    return [...data].sort((a, b) => {
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+
+      if (typeof aValue === "string") {
+        return sortConfig.direction === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      } else {
+        return sortConfig.direction === "asc" ? aValue - bValue : bValue - aValue;
+      }
+    });
+  };
+
+  const handleSort = (key) => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  };
+
+  // Filter data based on search query
+  const filteredData = cryptoData.filter((crypto) =>
+    crypto.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const sortedData = sortData(filteredData);
+
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Header */}
       <header className="flex justify-between items-center px-6 py-4 border-b border-gray-800">
         <h1 className="text-2xl font-bold text-yellow-500">CryptoDemo</h1>
-        <button className="bg-yellow-500 px-4 py-2 rounded-md text-black font-medium">Sign In</button>
+        <button className="bg-yellow-500 px-4 py-2 rounded-md text-black font-medium">
+          Sign In
+        </button>
       </header>
 
-      {/* Hero Section */}
-      <section className="text-center py-16">
-        <h2 className="text-5xl font-bold mb-4 text-yellow-500">IHWebb App</h2>
-        <p className="text-gray-400 mb-8">Join the most trusted crypto platform.</p>
-        <div className="flex justify-center">
-          <input
-            type="text"
-            placeholder="Email/Phone number"
-            className="px-4 py-2 rounded-l-md text-black"
-          />
-          <button className="bg-yellow-500 px-6 py-2 rounded-r-md font-medium text-black">
-            Sign Up
-          </button>
-        </div>
+      {/* Search Bar */}
+      <section className="px-6 py-4">
+        <input
+          type="text"
+          placeholder="Search cryptocurrency..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full px-4 py-2 text-black rounded-md"
+        />
       </section>
 
-      {/* Market Prices */}
+      {/* Market Prices Section */}
       <section className="px-6 py-8">
-        <h3 className="text-2xl font-semibold mb-4">Popular Cryptos</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {/* Crypto Card */}
-          <div className="bg-gray-800 p-4 rounded-md text-center">
-            <h4 className="font-semibold">BTC</h4>
-            <p className="text-gray-400">Bitcoin</p>
-            <p className="text-green-400 text-lg font-bold">$98,412.08</p>
+        <h3 className="text-2xl font-semibold mb-4">All Cryptos in USD</h3>
+        {error ? (
+          <p className="text-red-500">{error}</p>
+        ) : sortedData.length === 0 ? (
+          <p className="text-gray-400">No cryptocurrencies found.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full text-left">
+              <thead>
+                <tr className="bg-gray-800">
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("symbol")}>
+                    Name {sortConfig.key === "symbol" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("price")}>
+                    Price {sortConfig.key === "price" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("change1h")}>
+                    1h Change {sortConfig.key === "change1h" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("change4h")}>
+                    4h Change {sortConfig.key === "change4h" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("change24h")}>
+                    24h Change {sortConfig.key === "change24h" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("volume")}>
+                    24h Volume {sortConfig.key === "volume" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                  <th className="px-4 py-2 cursor-pointer" onClick={() => handleSort("marketCap")}>
+                    Market Cap {sortConfig.key === "marketCap" && (sortConfig.direction === "asc" ? "↑" : "↓")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedData.map((crypto, index) => (
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? "bg-gray-700" : "bg-gray-800"}
+                  >
+                    <td className="px-4 py-2">{crypto.symbol}</td>
+                    <td className="px-4 py-2">${crypto.price}</td>
+                    <td
+                      className={`px-4 py-2 ${
+                        crypto.change1h < 0 ? "text-red-500" : "text-green-500"
+                      }`}
+                    >
+                      {crypto.change1h === "N/A" ? "N/A" : ${crypto.change1h}%}
+                    </td>
+                    <td
+                      className={`px-4 py-2 ${
+                        crypto.change4h < 0 ? "text-red-500" : "text-green-500"
+                      }`}
+                    >
+                      {crypto.change4h === "N/A" ? "N/A" : ${crypto.change4h}%}
+                    </td>
+                    <td
+                      className={`px-4 py-2 ${
+                        crypto.change24h < 0 ? "text-red-500" : "text-green-500"
+                      }`}
+                    >
+                      {crypto.change24h}%
+                    </td>
+                    <td className="px-4 py-2">
+                      ${parseFloat(crypto.volume).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-2">
+                      ${parseFloat(crypto.marketCap).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          <div className="bg-gray-800 p-4 rounded-md text-center">
-            <h4 className="font-semibold">ETH</h4>
-            <p className="text-gray-400">Ethereum</p>
-            <p className="text-green-400 text-lg font-bold">$3,483.58</p>
-          </div>
-          <div className="bg-gray-800 p-4 rounded-md text-center">
-            <h4 className="font-semibold">BNB</h4>
-            <p className="text-gray-400">Binance Coin</p>
-            <p className="text-green-400 text-lg font-bold">$708.68</p>
-          </div>
-          <div className="bg-gray-800 p-4 rounded-md text-center">
-            <h4 className="font-semibold">XRP</h4>
-            <p className="text-gray-400">Ripple</p>
-            <p className="text-red-400 text-lg font-bold">$2.28</p>
-          </div>
-        </div>
-      </section>
-
-      {/* News Section */}
-      <section className="px-6 py-8">
-        <h3 className="text-2xl font-semibold mb-4">News</h3>
-        <ul className="space-y-4">
-          <li className="bg-gray-800 p-4 rounded-md">
-            QCP: MicroStrategy's Latest BTC Purchase Sparks Market Concerns Amid Waning Crypto Enthusiasm.
-          </li>
-          <li className="bg-gray-800 p-4 rounded-md">
-            Michael Saylor Advocates Bitcoin As Ideal Christmas Gift.
-          </li>
-          <li className="bg-gray-800 p-4 rounded-md">
-            Key Trends To Watch In 2025: Blockchain And Digital Currencies.
-          </li>
-        </ul>
+        )}
       </section>
     </div>
   );
