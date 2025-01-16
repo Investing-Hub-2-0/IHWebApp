@@ -1,0 +1,182 @@
+nav {
+    padding: 0 !important;
+    display: inline-flex;
+    justify-content: start;
+    align-self: center;
+}
+
+.imgCoinmarket {
+    width: 215px;
+}
+
+.wrapper {
+    display: inline-flex;
+    width: 100%;
+    padding: 0.5% 0 0.5% 0;
+    align-self: center;
+}
+
+
+nav>div>span {
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    border-radius: 10px;
+    padding: 16px;
+    background-color: #fff;
+    width: 300px;
+    z-index: 1;
+    left: 50%;
+    top: 55px;
+    cursor: pointer;
+    margin-top: 0px;
+    transform: translate(-50%, 0%)
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0 0 30px 30px;
+}
+
+.subItem {
+    padding: 8px;
+    display: grid;
+    grid-template-columns: max-content auto auto auto;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.dropdownContent a {
+    display: block;
+    min-height: 60px;
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+}
+
+.subItem:hover {
+    background-color: rgb(247, 247, 247);
+
+}
+
+.dropdownContent .subItem>:first-child {
+    margin-right: 16px;
+    width: 42px;
+    height: 42px;
+    vertical-align: middle;
+}
+
+/* TODO: Don't dissapear dropdonwContent, having margin */
+.dropdown:hover .arrowUp {
+    bottom:0;
+    margin-left: 33.3%;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    z-index: 999;
+}
+
+.imgUser {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.div1 {
+    padding-left: 25px;
+    min-height: 50px;
+}
+
+.div2 {
+    position: relative;
+    top: 10%;
+}
+
+.div3{
+    position: relative;
+    top:18%;
+}
+
+.div4{
+    position: relative;
+    top:8%;
+}
+
+.wrapperSearch {
+    margin-left: 20px;
+}
+
+.wrapperSearch>input {
+    width: 200px;
+    height: 50px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 8px;
+    border: 0px !important;
+}
+
+.diamond {
+    display: inline-block;
+    width: 28px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.diamondContent {
+    position: absolute;
+    display: none;
+    min-width: 350px;
+    background-color: #fff;
+    z-index: 1;
+    left: 50%;
+    margin-top: 0px;
+    border-radius: 8px;
+}
+
+.diamondContent:first-child {
+    margin-left: 32px;
+
+}
+
+.div1:hover .diamondContent {
+    display: flex;
+    align-self: center;
+}
+
+.diamondContentImage {
+    text-align: center;
+    align-self: center;
+    padding: 10px;
+    width: 25%;
+}
+
+.diamondContentText {
+    width: 75%;
+    padding: 10px
+}
+
+.diamondContentText>h5 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.diamondContentText>p {
+    margin-top: 10px;
+    margin: 0px;
+    font-size: 15px;
+}

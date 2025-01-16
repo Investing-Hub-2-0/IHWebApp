@@ -1,0 +1,84 @@
+.card{
+    background-color: #fff;
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+    margin-right: 25px;
+}
+
+.cardBody{
+    padding: 20px;
+}
+
+.cardTitle{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.textMuted{
+    font-size: 14.5px;
+    color: #808a9d;
+    margin-left: 8px;
+}
+
+.card .cardBody a{
+    float: right;
+    margin: 0px;
+    text-decoration: none;
+    color: rgb(56, 97, 251);
+    font-weight: 700;
+}
+
+
+.card .cardBody a:hover{
+    float: right;
+    margin: 0px;
+    text-decoration: none;
+    color: rgb(116, 145, 248);
+
+}
+
+.wrapperTitle{
+    display:flex;
+    align-self: center;
+}
+
+.imgFire{
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+}
+
+.idNumber{  
+    margin: 0 10px 0 10px;
+    color: #9198a5;
+    font-size: 15px;
+}
+
+
+.wrapperContent{
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+}
+
+.positivePercentage{
+    color: #16c784;
+}
+
+.negativePercentage{
+    color: #ea3943;
+}
+
+.iconCaret{
+    margin-right: 10px;
+}
+
+.wrapperCards{
+    display: flex;
+}
+
+.noMargin{
+    margin: 0px;
+}

@@ -1,0 +1,121 @@
+.buttonSubscribe {
+    padding: 0px 24px;
+    font-size: 17px;
+    line-height: 24px;
+    height: 60px;
+    margin-top: 50px;
+}
+
+.buttonHiring {
+    padding: 0px 10px;
+    font-size: 12px;
+    height: 20px;
+    border-radius:50px;
+    margin-left: 10px
+}
+
+
+.text {
+    font-size: 1vw;
+    color: rgb(88, 102, 126);
+    font-weight: 500;
+    padding-right: 10%;
+}
+
+
+.wrapperText {
+    width: 60%;
+    padding: 4% 0 0 6%;
+}
+
+h1 {
+    font-weight: normal;
+    font-size: 40px;
+}
+
+.imgNewsletter {
+    padding-top: 1%;
+    width: 36%;
+    height: auto;
+}
+
+.imgCoinmarket {
+    width: 27.5%;
+}
+
+.firstFooterPart {
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    padding: 0 2% 0 2%;
+    min-height: 50vh;
+}
+
+.secondFooterPart {
+    display: inline-flex;
+    padding: 1.5% 0 0 8%;
+    width: 100%;
+}
+
+
+.thirdFooterPart {
+    width: 100%;
+    padding: 4% 0 0 8%;
+    display: inline-flex;
+    height: 100px;
+}
+
+
+span {
+    font-weight: 700;
+    font-size: 21px;
+}
+
+.wrapperAllUl ul {
+    display: block;
+    padding: 0;
+    
+}
+
+.wrapperAllUl ul li {
+    padding: 16px 0 0 0 !important;
+    list-style: none;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(88, 102, 126);
+}
+
+.wrapperImgCoinmarket{
+    width: 45%;
+}
+.wrapperAllUl{
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+}
+
+small{
+    color: rgb(88, 102, 126);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.imgGoogle{
+    width: 130px;
+}
+.imgQrCode{
+    height: 38px;
+}
+
+.wrapperCopyright{
+    width: 67.5%;
+}
+.wrapperMobileShop img{
+    display:inline-block;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.wrapperMobileShop{
+    height: 100px;
+}

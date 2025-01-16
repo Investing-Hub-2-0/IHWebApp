@@ -1,0 +1,96 @@
+table {
+    padding-top: 2%;
+    width: 100%;
+}
+
+table>tbody>tr:hover {
+    background: rgb(240, 240, 240);
+}
+
+thead {
+    text-align: left;
+}
+
+tr>td {
+    font-size: 20px;
+}
+
+.fw600 {
+    font-weight: 600;
+}
+
+.starChecked {
+    color: orange;
+    cursor: pointer;
+}
+
+tbody>tr>td {
+    padding: 32px 10px 32px 10px;
+}
+
+th {
+    padding: 10px;
+    text-align: right;
+}
+
+
+td {
+    text-align: right;
+}
+
+th:nth-child(1) {
+    text-align: left;
+    padding: 32px 0 44px 0;
+
+}
+
+th:nth-child(2){
+    text-align: left;
+}
+
+th:nth-child(3){
+    text-align: left;
+
+}
+
+td:nth-child(1) {
+    text-align: left;
+}
+
+td:nth-child(2){
+    text-align: left;
+}
+
+td:nth-child(3){
+    text-align: left;
+
+}
+
+
+.imgCrypto {
+    position: relative;
+    width: 29px;
+    margin: 0px;
+
+}
+
+
+tbody>tr>td:first-child {
+    margin: 15px 0 0 15px;
+    margin-top: 14px;
+    align-self: center;
+    text-align: center;
+    width: 10px;
+    font-size: 15px;
+}
+
+
+.marginLeft {
+    margin-left: 10px;
+}
+
+.rectLine{
+    position: absolute;
+    border: 1px solid rgb(233, 233, 233);
+    width: 84%;
+}
