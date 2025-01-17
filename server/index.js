@@ -9,7 +9,7 @@ app.use(express.json());
 // Fetch 24-hour stats for all symbols
 const fetch24HourStats = async () => {
   try {
-    const response = await axios.get(https://api.binance.com/api/v3/ticker/24hr);
+    const response = await axios.get('https://api.binance.com/api/v3/ticker/24hr');
     return response.data.filter((item) => item.symbol.endsWith("USDT")); // Only USDT pairs
   } catch (error) {
     console.error("Error fetching 24-hour stats:", error.message);
@@ -20,22 +20,22 @@ const fetch24HourStats = async () => {
 // Fetch 1-hour and 4-hour change data for a given symbol
 const getKlineChange = async (symbol, interval) => {
   try {
-    const response = await axios.get(https://api.binance.com/api/v3/klines, {
+    const response = await axios.get('https://api.binance.com/api/v3/klines', {
       params: {
         symbol,
         interval,
-        limit: 2, // Get last two data points
+        limit: 2, // Get the last two data points
       },
     });
-    const [previous, latest] = response.data;
 
+    const [previous, latest] = response.data;
     const previousClose = parseFloat(previous[4]); // Close price of the previous candle
     const latestClose = parseFloat(latest[4]); // Close price of the latest candle
 
     const change = ((latestClose - previousClose) / previousClose) * 100;
     return change.toFixed(2);
   } catch (error) {
-    console.error(Error fetching kline data for ${symbol} at ${interval}:, error.message);
+    console.error(`Error fetching kline data for ${symbol} at ${interval}:`, error.message);
     return "N/A";
   }
 };
@@ -81,5 +81,5 @@ app.get("/api/crypto", async (req, res) => {
 
 const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(Server running on http://localhost:${PORT});
+  console.log(`Server running on http://localhost:${PORT}`);
 });
