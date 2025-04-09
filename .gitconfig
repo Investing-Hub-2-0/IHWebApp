@@ -1,0 +1,8 @@
+[user]
+	name = Görkem Ertaş
+	email = gorkemertas2163@hotmail.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
